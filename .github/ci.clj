@@ -26,7 +26,7 @@
 ;; Pipeline stages
 (defn install-stage []
   (gh-group "📦 Install dependencies")
-  (run-bash "npm ci")
+  (run-bash "npm install")
   (gh-endgroup))
 
 (defn compile-stage []
