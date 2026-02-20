@@ -1,0 +1,152 @@
+{
+  "name": "spai",
+  "displayName": "spai",
+  "description": "Code analysis tools — blast radius, reverse deps, co-change, file biography, architecture drift, hotspots, TODOs",
+  "version": "0.1.0",
+  "publisher": "spoqe",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "spai.blast",
+        "title": "spai: Blast Radius",
+        "icon": "$(target)"
+      },
+      {
+        "command": "spai.context",
+        "title": "spai: Symbol Context",
+        "icon": "$(symbol-method)"
+      },
+      {
+        "command": "spai.who",
+        "title": "spai: Who Imports This?",
+        "icon": "$(references)"
+      },
+      {
+        "command": "spai.related",
+        "title": "spai: Co-Change Partners",
+        "icon": "$(git-compare)"
+      },
+      {
+        "command": "spai.narrative",
+        "title": "spai: File Biography",
+        "icon": "$(history)"
+      },
+      {
+        "command": "spai.drift",
+        "title": "spai: Architecture Drift",
+        "icon": "$(warning)"
+      },
+      {
+        "command": "spai.shape",
+        "title": "spai: Module Shape",
+        "icon": "$(symbol-structure)"
+      },
+      {
+        "command": "spai.hotspots",
+        "title": "spai: Hotspots",
+        "icon": "$(flame)"
+      },
+      {
+        "command": "spai.todos",
+        "title": "spai: TODOs",
+        "icon": "$(checklist)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "spai.who",
+          "when": "resourceScheme == file && !explorerResourceIsFolder",
+          "group": "spai@1"
+        },
+        {
+          "command": "spai.related",
+          "when": "resourceScheme == file && !explorerResourceIsFolder",
+          "group": "spai@2"
+        },
+        {
+          "command": "spai.narrative",
+          "when": "resourceScheme == file && !explorerResourceIsFolder",
+          "group": "spai@3"
+        },
+        {
+          "command": "spai.drift",
+          "when": "explorerResourceIsFolder",
+          "group": "spai@1"
+        },
+        {
+          "command": "spai.shape",
+          "when": "explorerResourceIsFolder",
+          "group": "spai@2"
+        },
+        {
+          "command": "spai.hotspots",
+          "when": "explorerResourceIsFolder",
+          "group": "spai@3"
+        },
+        {
+          "command": "spai.todos",
+          "when": "explorerResourceIsFolder",
+          "group": "spai@4"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "spai.blast",
+          "group": "spai@1"
+        },
+        {
+          "command": "spai.context",
+          "group": "spai@2"
+        },
+        {
+          "command": "spai.who",
+          "group": "spai@3"
+        },
+        {
+          "command": "spai.related",
+          "group": "spai@4"
+        },
+        {
+          "command": "spai.narrative",
+          "group": "spai@5"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "spai",
+      "properties": {
+        "spai.binaryPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the spai binary. Leave empty to search PATH (typically ~/.local/bin/spai)."
+        },
+        "spai.timeout": {
+          "type": "number",
+          "default": 30000,
+          "description": "Timeout for spai commands in milliseconds. Git-based analysis (narrative, related, drift) can be slow on large repos."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  }
+}
