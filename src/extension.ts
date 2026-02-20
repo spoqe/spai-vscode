@@ -39,6 +39,24 @@ export function activate(context: vscode.ExtensionContext): void {
             workspaceRoot,
         );
         panel.showResult(result);
+
+        if (!result.success && result.error?.includes('Is spai installed?')) {
+            const action = await vscode.window.showErrorMessage(
+                'spai CLI not found. Install it to use code analysis tools.',
+                'Install Instructions',
+                'Set Binary Path',
+            );
+            if (action === 'Install Instructions') {
+                vscode.env.openExternal(vscode.Uri.parse(
+                    'https://github.com/Semantic-partners/spai#installation',
+                ));
+            } else if (action === 'Set Binary Path') {
+                vscode.commands.executeCommand(
+                    'workbench.action.openSettings',
+                    'spai.binaryPath',
+                );
+            }
+        }
     }
 
     function getFilePathFromContext(uri?: vscode.Uri): string | undefined {

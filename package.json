@@ -8,8 +8,24 @@
     "vscode": "^1.85.0"
   },
   "categories": [
+    "Programming Languages",
     "Other"
   ],
+  "keywords": [
+    "code analysis",
+    "blast radius",
+    "reverse dependencies",
+    "co-change",
+    "hotspots",
+    "architecture",
+    "git history"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Semantic-partners/spai-vscode"
+  },
+  "homepage": "https://github.com/Semantic-partners/spai-vscode#readme",
+  "license": "MIT",
   "activationEvents": [
     "*"
   ],
@@ -147,6 +163,7 @@
   "devDependencies": {
     "@types/vscode": "^1.85.0",
     "@types/node": "^20.0.0",
+    "@vscode/vsce": "^3.0.0",
     "typescript": "^5.3.0"
   }
 }
