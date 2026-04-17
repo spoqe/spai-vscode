@@ -2,7 +2,7 @@
   "name": "spai",
   "displayName": "spai",
   "description": "Code analysis tools — blast radius, reverse deps, co-change, file biography, architecture drift, hotspots, TODOs",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "publisher": "spoqe",
   "icon": "icon.png",
   "engines": {
