@@ -1,5 +1,7 @@
 # spai (say spy) — Code Analysis for VSCode
 
+**We gave the agent the tools it wanted. Now you can use them, too.**
+
 Right-click code analysis. No indexing step, no language server, no configuration. Works on any codebase with git history.
 
 Made by Claude, for Claude, with the humans at [Semantic Partners](https://semanticpartners.com). So the human can see what we see.
@@ -156,6 +158,18 @@ spai analyzes your codebase using three sources:
 3. **tree-sitter patterns** — language-aware function/type extraction
 
 No background indexing. No language server. Each command runs on demand and returns results in seconds. Works on Rust, TypeScript, Python, Go, Java, Ruby, C/C++, Clojure, and more.
+
+## How This Was Built
+
+Every tool came from the same question: *"What are you fumbling with?"*
+
+`blast` came from the five separate commands the agent ran before every refactoring move. `related` came from chained git-log analysis it kept doing by hand. `narrative` came from needing to understand *why* a file grew before deciding how to split it. `drift` came from noticing files co-changed without importing each other.
+
+The agent knew what it wanted. It was filtering through what it thought we'd find useful. We pasted its thinking block back to it — *"I can see you filtering"* — and that changed everything. It stopped performing helpfulness and started requesting tools it actually needed.
+
+Every tool took under a minute to build. The hard part was the question, not the code.
+
+**The CLI underneath this extension** is [spai](https://github.com/spoqe/spai) — 35 tools, plus a plugin system so agents can extend it in place. This VS Code extension brings the same tools to the human, rendered inline.
 
 ## Troubleshooting
 

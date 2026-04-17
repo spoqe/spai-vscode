@@ -52,12 +52,32 @@
                    " " vsix)))
   (gh-endgroup))
 
+(defn local-version []
+  (-> (slurp "package.json")
+      (->> (re-find #"\"version\"\s*:\s*\"([^\"]+)\""))
+      second))
+
+(defn published-versions []
+  (let [result (shell/sh "bash" "-c" "npx vsce show spoqe.spai --json 2>/dev/null || echo '{}'")]
+    (set (re-seq #"\d+\.\d+\.\d+" (:out result)))))
+
 (defn publish-stage [git-ref]
   (gh-group "🚀 Publish to VS Code Marketplace")
-  (let [pre-release? (str/starts-with? git-ref "refs/heads/release/")
+  (let [version      (local-version)
+        published    (published-versions)
+        pre-release? (str/starts-with? git-ref "refs/heads/release/")
         flag         (if pre-release? " --pre-release" "")]
-    (println (str "Publishing " (if pre-release? "pre-release" "stable") " to marketplace..."))
-    (run-bash (str "npx vsce publish --no-dependencies" flag)))
+    (cond
+      (not version)
+      (do (gh-error "Could not parse version from package.json") (System/exit 1))
+
+      (contains? published version)
+      (gh-notice (str "v" version " already published — skipping (bump package.json to publish)"))
+
+      :else
+      (do
+        (println (str "Publishing v" version " (" (if pre-release? "pre-release" "stable") ")..."))
+        (run-bash (str "npx vsce publish --no-dependencies" flag)))))
   (gh-endgroup))
 
 ;; Main pipeline
