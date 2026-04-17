@@ -171,6 +171,22 @@ Every tool took under a minute to build. The hard part was the question, not the
 
 **The CLI underneath this extension** is [spai](https://github.com/spoqe/spai) — 35 tools, plus a plugin system so agents can extend it in place. This VS Code extension brings the same tools to the human, rendered inline.
 
+## Why Babashka?
+
+The `bb` dependency raises the question. Here's the answer:
+
+**Startup.** bb launches in ~20ms. A Python venv + imports takes 200ms–2s. For a tool that fires on every right-click, that latency compounds fast.
+
+**EDN is native.** spai's output format is EDN — keywords, sets, tagged literals. In bb, that's just data. In Python you'd round-trip through JSON, losing type fidelity every time.
+
+**Plugin discovery is just data.** A plugin is a single script with an EDN map as frontmatter. `spai plugins` reads the metadata without executing anything. No `setup.py`, no `requirements.txt`, no `__init__.py`.
+
+**Stability.** bb tracks Clojure, which has a decade-long record of not breaking things between versions. Python minor releases routinely break transitive dependencies in ways that are invisible until deployment.
+
+**Homoiconicity.** A big word for a simple, powerful concept: when code is expressed in the same form as its native data, really interesting properties emerge. The tool metadata, the tool output, and the queries the tools serve are all EDN — one format to read, one to parse, one to transform.
+
+Could plugins be written in Python? There's nothing preventing it — `spai foo` calls `spai-foo`, which can be any executable. The core is bb because that's where the leverage is.
+
 ## Troubleshooting
 
 **"spai not found"** — Make sure `spai` is on your PATH, or set `spai.binaryPath` in settings. Test with `spai help` in your terminal.
