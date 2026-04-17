@@ -175,6 +175,8 @@ Every tool took under a minute to build. The hard part was the question, not the
 
 **The CLI underneath this extension** is [spai](https://github.com/spoqe/spai) — 35 tools, plus a plugin system so agents can extend it in place. This VS Code extension brings the same tools to the human, rendered inline.
 
+Part of the [SPOQE](https://github.com/spoqe/spoqe) family — federated query tools for data and code that live where they are.
+
 ## Why Babashka?
 
 The `bb` dependency raises the question. Here's the answer:
