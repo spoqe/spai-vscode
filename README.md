@@ -1,7 +1,7 @@
 # spai (say spy) — Code Analysis for VSCode
 
-[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/spoqe.spai?label=marketplace&color=007ACC)](https://marketplace.visualstudio.com/items?itemName=spoqe.spai)
-[![Installs](https://img.shields.io/visual-studio-marketplace/i/spoqe.spai)](https://marketplace.visualstudio.com/items?itemName=spoqe.spai)
+[![VS Code Marketplace](https://vsmarketplacebadges.dev/version-short/spoqe.spai.svg?label=marketplace&color=007ACC)](https://marketplace.visualstudio.com/items?itemName=spoqe.spai)
+[![Installs](https://vsmarketplacebadges.dev/installs-short/spoqe.spai.svg)](https://marketplace.visualstudio.com/items?itemName=spoqe.spai)
 [![License](https://img.shields.io/badge/license-EPL--2.0-blue)](LICENSE)
 
 **We gave the agent the tools it wanted. Now you can use them, too.**
