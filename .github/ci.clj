@@ -39,11 +39,36 @@
   (run-bash "npx vsce package --no-dependencies")
   (gh-endgroup))
 
+(defn release-stage [tag]
+  (gh-group "🚀 Create GitHub Release")
+  (let [vsix (first (filter #(.endsWith % ".vsix")
+                            (map str (.listFiles (java.io.File. ".")))))]
+    (when-not vsix
+      (gh-error "No .vsix file found")
+      (System/exit 1))
+    (run-bash (str "gh release create " tag
+                   " --title \"spai " tag "\""
+                   " --generate-notes"
+                   " " vsix)))
+  (gh-endgroup))
+
+(defn publish-stage [git-ref]
+  (gh-group "🚀 Publish to VS Code Marketplace")
+  (let [pre-release? (str/starts-with? git-ref "refs/heads/release/")
+        flag         (if pre-release? " --pre-release" "")]
+    (println (str "Publishing " (if pre-release? "pre-release" "stable") " to marketplace..."))
+    (run-bash (str "npx vsce publish --no-dependencies" flag)))
+  (gh-endgroup))
+
 ;; Main pipeline
 (defn run-pipeline []
   (install-stage)
   (compile-stage)
   (package-stage))
+
+(defn release-pipeline [tag]
+  (run-pipeline)
+  (release-stage tag))
 
 ;; CLI
 (defn -main [& args]
@@ -52,14 +77,22 @@
     "install" (install-stage)
     "compile" (do (install-stage) (compile-stage))
     "package" (run-pipeline)
+    "publish" (if-let [git-ref (second args)]
+                (publish-stage git-ref)
+                (do (gh-error "publish requires a git ref argument") (System/exit 1)))
+    "release" (if-let [tag (second args)]
+                (release-pipeline tag)
+                (do (gh-error "release requires a tag argument") (System/exit 1)))
     (do
       (println "Usage: bb ci.clj <command>")
       (println)
       (println "Commands:")
-      (println "  run       Run entire pipeline (install → compile → package)")
-      (println "  install   Install dependencies only")
-      (println "  compile   Install + compile TypeScript")
-      (println "  package   Full pipeline including VSIX packaging"))))
+      (println "  run              Run entire pipeline (install → compile → package)")
+      (println "  install          Install dependencies only")
+      (println "  compile          Install + compile TypeScript")
+      (println "  package          Full pipeline including VSIX packaging")
+      (println "  publish <ref>    Publish to marketplace (stable for main, pre-release for release/*)")
+      (println "  release <tag>    Full pipeline + create GitHub Release"))))
 
 (when (= *file* (System/getProperty "babashka.file"))
   (apply -main *command-line-args*))

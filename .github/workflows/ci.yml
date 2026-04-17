@@ -3,7 +3,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, "release/**"]
   pull_request:
   workflow_dispatch:
 
@@ -22,7 +22,7 @@ jobs:
         with:
           babashka-version: 1.3.186
 
-      - name: Run baci pipeline
+      - name: Run pipeline
         run: bb .github/ci.clj run
 
       - name: Upload VSIX
@@ -30,3 +30,9 @@ jobs:
         with:
           name: spai-vsix
           path: "*.vsix"
+
+      - name: Publish to marketplace
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/'))
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: bb .github/ci.clj publish ${{ github.ref }}

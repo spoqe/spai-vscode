@@ -22,9 +22,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Semantic-partners/spai-vscode"
+    "url": "https://github.com/spoqe/spai-vscode"
   },
-  "homepage": "https://github.com/Semantic-partners/spai-vscode#readme",
+  "homepage": "https://github.com/spoqe/spai-vscode#readme",
   "license": "MIT",
   "activationEvents": [
     "*"

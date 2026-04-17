@@ -6,15 +6,14 @@ Made by Claude, for Claude, with the humans at [Semantic Partners](https://seman
 
 **What it does:** Answers the questions you ask before changing code — who calls this? what breaks if I change it? what files move together? how did this module get here?
 
-![Overview](screenshots/overview.png)
-<!-- Screenshot: editor right-click menu showing spai commands -->
+<!-- TODO: screenshot — editor right-click menu showing spai commands (overview.png) -->
 
 ## Installation
 
 ### 1. Install spai CLI
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Semantic-partners/spai/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/spoqe/spai/main/install.sh | bash
 ```
 
 Or manually: clone the repo and add `~/.local/bin/spai` to your PATH.
@@ -55,8 +54,7 @@ Everything is in **right-click context menus**. Also available in the command pa
 
 Who defines it, who calls it, what tests cover it, who last touched it, and a risk assessment. Everything you need before renaming, deleting, or changing a function's signature.
 
-![Blast Radius](screenshots/blast-radius.png)
-<!-- Screenshot: blast radius panel showing definition, callers, tests, git authors -->
+<!-- TODO: screenshot — blast-radius.png -->
 
 ---
 
@@ -66,8 +64,7 @@ Who defines it, who calls it, what tests cover it, who last touched it, and a ri
 
 Every usage of a symbol, shown with the **enclosing function name** — not just line numbers, but *which functions* call it. Understand how a function is used across the codebase.
 
-![Symbol Context](screenshots/symbol-context.png)
-<!-- Screenshot: symbol context panel showing usages grouped by enclosing function -->
+<!-- TODO: screenshot — symbol-context.png -->
 
 ---
 
@@ -77,8 +74,7 @@ Every usage of a symbol, shown with the **enclosing function name** — not just
 
 Reverse dependency lookup. Before you edit a file, see every file that imports it. Understand downstream impact in one click.
 
-![Who Imports This?](screenshots/who.png)
-<!-- Screenshot: who-imports panel showing list of importing files -->
+<!-- TODO: screenshot — who.png -->
 
 ---
 
@@ -89,7 +85,6 @@ Reverse dependency lookup. Before you edit a file, see every file that imports i
 Files that move together in git history. If file A changes, which other files usually change with it? Reveals implicit coupling that imports don't show — the hidden dependencies that bite you during refactors.
 
 ![Co-Change Partners](screenshots/related.png)
-<!-- Screenshot: co-change panel showing files with percentage correlation -->
 
 ---
 
@@ -99,8 +94,7 @@ Files that move together in git history. If file A changes, which other files us
 
 The story of a file: when it was created, its growth phases, major refactors, stabilization periods. Understand how code got to its current state before you change it.
 
-![File Biography](screenshots/narrative.png)
-<!-- Screenshot: file biography panel showing timeline of file evolution -->
+<!-- TODO: screenshot — narrative.png -->
 
 ---
 
@@ -111,7 +105,6 @@ The story of a file: when it was created, its growth phases, major refactors, st
 All functions, types, and implementations in a directory, grouped by file. Clickable — click any symbol to jump to its definition. The API surface of a module at a glance.
 
 ![Module Shape](screenshots/shape.png)
-<!-- Screenshot: module shape panel showing functions/types/impls grouped by file, with clickable symbols -->
 
 ---
 
@@ -123,11 +116,7 @@ Files ranked by change frequency. A treemap visualization shows where developmen
 
 Tabs: **Chart** (treemap) | **List** (ranked table)
 
-![Hotspots Chart](screenshots/hotspots-chart.png)
-<!-- Screenshot: hotspots treemap visualization with colored cells -->
-
-![Hotspots List](screenshots/hotspots-list.png)
-<!-- Screenshot: hotspots list view showing files ranked by commits/lines changed -->
+![Hotspots](screenshots/hotspots-chart.png)
 
 ---
 
@@ -137,8 +126,7 @@ Tabs: **Chart** (treemap) | **List** (ranked table)
 
 Where implicit coupling (co-change in git) diverges from explicit coupling (imports). Finds files that *should* be in the same module but aren't, or files in the same module that never change together. Architecture debt, surfaced.
 
-![Architecture Drift](screenshots/drift.png)
-<!-- Screenshot: drift panel showing coupling mismatches -->
+<!-- TODO: screenshot — drift.png -->
 
 ---
 
@@ -148,8 +136,7 @@ Where implicit coupling (co-change in git) diverges from explicit coupling (impo
 
 Every TODO, FIXME, HACK, and XXX in a directory, with file locations. Click to jump to the line.
 
-![TODOs](screenshots/todos.png)
-<!-- Screenshot: TODOs panel showing categorized TODO/FIXME/HACK items with file links -->
+<!-- TODO: screenshot — todos.png -->
 
 ---
 
@@ -176,7 +163,7 @@ No background indexing. No language server. Each command runs on demand and retu
 
 **Slow results** — Git-based commands (biography, co-change, drift, hotspots) run `git log`, which can be slow on repos with long history. Increase `spai.timeout` if needed.
 
-**No results for a language** — spai uses regex patterns for code structure. If your language isn't supported, [open an issue](https://github.com/Semantic-partners/spai/issues).
+**No results for a language** — spai uses regex patterns for code structure. If your language isn't supported, [open an issue](https://github.com/spoqe/spai/issues).
 
 ## License
 

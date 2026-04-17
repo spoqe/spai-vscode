@@ -1,0 +1,29 @@
+# Minimal YAML wrapper — all logic in ci.clj
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup babashka
+        uses: turtlequeue/setup-babashka@v1.5.0
+        with:
+          babashka-version: 1.3.186
+
+      - name: Build and release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bb .github/ci.clj release ${{ github.ref_name }}

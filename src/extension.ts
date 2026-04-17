@@ -43,13 +43,13 @@ export function activate(context: vscode.ExtensionContext): void {
         if (!result.success && result.error?.includes('Is spai installed?')) {
             const action = await vscode.window.showErrorMessage(
                 'spai CLI not found. Install it to use code analysis tools.',
-                'Install Instructions',
+                'Install spai',
                 'Set Binary Path',
             );
-            if (action === 'Install Instructions') {
-                vscode.env.openExternal(vscode.Uri.parse(
-                    'https://github.com/Semantic-partners/spai#installation',
-                ));
+            if (action === 'Install spai') {
+                const term = vscode.window.createTerminal('spai install');
+                term.show();
+                term.sendText('curl -fsSL https://raw.githubusercontent.com/spoqe/spai/main/install.sh | bash');
             } else if (action === 'Set Binary Path') {
                 vscode.commands.executeCommand(
                     'workbench.action.openSettings',
