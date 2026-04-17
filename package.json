@@ -2,8 +2,9 @@
   "name": "spai",
   "displayName": "spai",
   "description": "Code analysis tools — blast radius, reverse deps, co-change, file biography, architecture drift, hotspots, TODOs",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "publisher": "spoqe",
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -25,10 +26,8 @@
     "url": "https://github.com/spoqe/spai-vscode"
   },
   "homepage": "https://github.com/spoqe/spai-vscode#readme",
-  "license": "MIT",
-  "activationEvents": [
-    "*"
-  ],
+  "license": "EPL-2.0",
+  "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [

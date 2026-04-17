@@ -167,4 +167,4 @@ No background indexing. No language server. Each command runs on demand and retu
 
 ## License
 
-MIT
+[Eclipse Public License 2.0](LICENSE) — Copyright (c) 2026 SPOQE Ltd
